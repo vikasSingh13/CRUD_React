@@ -1,0 +1,23 @@
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-table tr td, .user-table tr th {
+  border: 1px solid #e5e5e5;
+  padding: 10px;
+}
+.user-table tr td {
+  color: #777;
+}
+
+button.btn {
+  background: none;
+  border: none;
+  color: #09718e;
+  cursor: pointer;
+  outline: none;
+}
+button.btn:hover {
+  color: #4994a8;
+}
