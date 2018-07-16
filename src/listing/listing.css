@@ -1,6 +1,8 @@
 .user-table {
   width: 100%;
   border-collapse: collapse;
+  background: white;
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.2);
 }
 
 .user-table tr td, .user-table tr th {
