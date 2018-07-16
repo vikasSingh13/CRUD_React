@@ -4,7 +4,7 @@ import './App.css';
 import Header from './header/Header';
 import Listing from './listing/Listing';
 import ContactAddView from './users/ContactAddView';
-import EditContactAddView from './users/EditContactAddView';
+import EditContact from './users/EditContact';
 
 const users = [
   {
@@ -40,7 +40,7 @@ class App extends Component {
             <Switch>
               <Route exact path='/' component={ContactAddView} />
               <Route exact path='/list' component={Listing} />
-              <Route path='/user/:phone/edit' component={EditContactAddView} />
+              <Route path='/user/:id/edit' component={EditContact} />
             </Switch>
           </div>
         </div>

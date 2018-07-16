@@ -1,4 +1,4 @@
-.login-wrap {
+.contact-wrap {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -8,6 +8,11 @@
   font-family: sans-serif;
   font-size: 12px;
 }
+
+.edit-wrap {
+  width: 305px;
+}
+
 .table {
   display: table;
   width: 100%;
@@ -90,7 +95,12 @@
 }
 .container .btn, .container input {
   padding: 10px 15px;
+  
 }
+.container input {
+  border: 1px solid #bbb;
+}
+
 .container input {
   margin: 0 auto 15px;
   display: block;
@@ -282,4 +292,8 @@
 
 .action-wrap .btn:first-child {
   margin-left: 0;
+}
+
+.edit-wrap .container .container-form {
+  left: 0;
 }

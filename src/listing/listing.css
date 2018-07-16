@@ -13,13 +13,14 @@
   color: #777;
 }
 
-button.btn {
+button.btn, a.btn {
   background: none;
+  text-decoration: none;
   border: none;
   color: #09718e;
   cursor: pointer;
   outline: none;
 }
-button.btn:hover {
+button.btn:hover, a.btn:hover {
   color: #4994a8;
 }
