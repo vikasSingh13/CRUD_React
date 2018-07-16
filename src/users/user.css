@@ -97,6 +97,7 @@
   padding: 10px 15px;
   
 }
+
 .container input {
   border: 1px solid #bbb;
 }
@@ -296,4 +297,17 @@
 
 .edit-wrap .container .container-form {
   left: 0;
+}
+
+.btn.btn-secondary, .btn-secondary, a.btn-secondary, button.btn-secondary {
+  border: none !important;
+  background: none !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  margin-left: 10px;
+  color: #ff73b3;
+}
+
+.register-header {
+  top: 18px;
 }
