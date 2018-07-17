@@ -1,4 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+```sh
+  npm create-react-app your-app-name
+```
 This command will give you the basic folder structure of a React app.
 
 Below you will find some information on how to perform common tasks.<br>
@@ -16,6 +19,9 @@ my-app/
     index.html
     favicon.ico
   src/
+    alerts/
+      alert.css
+      Alert.js
     header/
       header.css
       header.js
@@ -26,6 +32,7 @@ my-app/
       Listing.js
     users/
       ContactAddView.js
+      EditContact.js
       user.css
     App.css
     App.js
@@ -53,6 +60,9 @@ They will not be included in the production build so you can use them for things
 ## Available Scripts
 
 In the project directory, you can run:
+
+`npm install` or 'yarn install'
+To install all the Package.json dependecies.
 
 ### `npm start`
 
@@ -91,16 +101,16 @@ While you can still use `require()` and `module.exports`, we encourage you to us
 
 For example:
 
-### `Button.js`
+### `Alert.js`
 
 ```js
 import React, { Component } from 'react';
 
-class Button extends Component {
+class Alert extends Component {
   render() {
     // ...
   }
 }
 
-export default Button; // Don’t forget to use export default!
+export default Alert; // Don’t forget to use export default!
 ```
