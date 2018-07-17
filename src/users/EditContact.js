@@ -7,7 +7,9 @@ class EditContact extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        updatedID : ''
+        updatedID : '',
+        checkedRadioActive: true,
+        checkedRadioInActive: false
       };
     }
 
@@ -22,8 +24,21 @@ class EditContact extends Component {
             this.lname.value = item.last_name;
             this.email.value = item.email;
             this.phone.value = item.phone;
+            if(item.status === 'active') {
+              this.setState({checkedRadioActive: true, checkedRadioInActive: false});
+            }else {
+              this.setState({checkedRadioActive: false, checkedRadioInActive: true});
+            }
         }
       }.bind(this));
+    }
+
+    onChangeRadio(event) {
+      if(event.target.value === 'active') {
+        this.setState({checkedRadioActive: true, checkedRadioInActive: false});
+      }else {
+        this.setState({checkedRadioActive: false, checkedRadioInActive: true});
+      }
     }
 
     updateContact() {
@@ -34,6 +49,11 @@ class EditContact extends Component {
           item.last_name = this.lname.value;
           item.email = this.email.value;
           item.phone = this.phone.value;
+          if(this.state.checkedRadioActive) {
+            item.status = 'active';
+          }else {
+            item.status = 'inactive';
+          }
         }
         tempUserList.push(item);
       }.bind(this));
@@ -56,6 +76,17 @@ class EditContact extends Component {
                         <input name="lastName" placeholder="Last Name" type="text" ref={input => this.lname = input} />
                         <input name="email" placeholder="Email" type="text" ref={input => this.email = input} />
                         <input name="phone" placeholder="Phone" type="text" ref={input => this.phone = input} />
+                        <div className="radio-group">
+                          <label>
+                            <input type="radio" name="status" value="active" checked={this.state.checkedRadioActive} ref={input => this.statusRadioActive = input} onChange={(e) => this.onChangeRadio(e)}/>
+                            Active
+                          </label>
+
+                          <label>
+                            <input type="radio" name="status" value="inactive" checked={this.state.checkedRadioInActive} ref={input => this.statusRadioInactive = input} onChange={(e) => this.onChangeRadio(e)} />
+                            Inactive
+                          </label>
+                        </div>
                         <button className="btn" onClick={(e) => this.updateContact(e)}>
                           Update
                         </button>

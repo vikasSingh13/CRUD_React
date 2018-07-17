@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import './user.css';
 
 
-let tempUserList;
+let userList;
 class ContactAddView extends Component {
     
     componentWillMount() {
-      this.setState({ users: JSON.parse(localStorage.getItem('users')) });
+      if((localStorage.getItem('users') !== null)) {
+        userList = JSON.parse(localStorage.getItem('users'));
+        this.setState({ users: JSON.parse(localStorage.getItem('users')) });
+      }else {
+        userList = [];
+      }
     }
 
     showAdd() {
@@ -28,69 +32,106 @@ class ContactAddView extends Component {
       }
     }
 
-    submitSearch() {
+    onRadioChange(event) {
+      console.log(event.target.value);
+    }
+
+    submitSearch(event) {
       const email = this.email;
       let errorCount = 0;
 
-      email.nextElementSibling.classList.add('hide');
-      email.nextElementSibling.textContent = ' ';
+      if(this.state !== null) {
+        if(event.target.dataset.id === 'list') {
+          this.props.history.push('/list');
+        }else {
+          email.nextElementSibling.classList.add('hide');
+          email.nextElementSibling.textContent = ' ';
 
-      if(email.value.length) {
-          this.state.users.forEach(function(item, index){
-              if(email.value !== item.email) {
-                  errorCount++;
-              }else {
-                  errorCount--;
-              }
-          });
+          if(email.value.length) {
+              this.state.users.forEach(function(item, index){
+                  if(email.value !== item.email) {
+                      errorCount++;
+                  }else {
+                      errorCount--;
+                  }
+              });
+          }else {
+             this.headerError.classList.remove('hide');
+             this.headerError.textContent = 'Email field cannot be Empty!';
+             this.headerError.classList.add('header-error');
+             return false;
+          }
+          
+          if(errorCount === this.state.users.length) {
+              email.nextElementSibling.classList.remove('hide');
+              email.nextElementSibling.textContent = 'Sorry! This email is not present.';
+              return false;
+          }else {
+              this.headerError.textContent = 'Contact is present!';
+              this.headerError.classList.add('success');
+          }
+        }
       }else {
-         this.headerError.classList.remove('hide');
-         this.headerError.textContent = 'Email field cannot be Empty!';
-         this.headerError.classList.add('header-error');
-         return false;
-      }
-      
-      if(errorCount === this.state.users.length) {
-          email.nextElementSibling.classList.remove('hide');
-          email.nextElementSibling.textContent = 'Sorry! This email is not present.';
-          return false;
-      }else {
-          this.headerError.textContent = 'Contact is present!';
-          this.headerError.classList.add('success');
+        this.headerError.textContent = 'Contact list is empty. Start creating it!';
+        this.headerError.classList.add('header-error');
+        return false;
       }
     }
 
     submitContact() {
-      tempUserList = [];
-      
       if(this.validateFields()) {
-        alert('success');
-        this.props.history.push('/list');
+        let registeredUser = {
+          first_name: this.fname.value,
+          last_name: this.lname.value,
+          email: this.remail.value,
+          phone: this.rphone.value,
+          status: this.statusRadioActive.checked ? 'active' : 'inactive'
+        };
+
+        userList.push(registeredUser);
+
+        localStorage.setItem('users', JSON.stringify(userList));
+
+        setTimeout(function() {
+          this.props.history.push('/list');
+        }.bind(this), 1000);
       }
     }
 
     validateFields() {
       let emailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      
-      this.state.users.forEach(function(item, index) {
-        if(String(item.phone) === this.remail.value || String(item.phone) === this.rphone.value) {
-          alert('Duplicate User');
-          return false;
-        }
-      }.bind(this));
+      let validUser = true;
+      if(this.state !== null) {
+        this.state.users.forEach(function(item, index) {
+          if(String(item.email) === this.remail.value || String(item.phone) === this.rphone.value) {
+            this.headerRegisterError.textContent = 'Contact is already present!';
+            this.headerRegisterError.classList.add('header-error');
+            validUser = false;
+          }
+        }.bind(this));
+      }
 
       if(!this.fname.value.length || !this.lname.value.length || !this.remail.value.length || !this.rphone.value.length) {
         this.headerRegisterError.classList.add('header-error');
         this.headerRegisterError.textContent = 'Every fields are Mandatory';
-        return false;
+        validUser = false;
       }else if(!emailRegEx.test(String(this.remail.value).toLowerCase())) {
-        alert('wrong email');
-        return false;
+        this.headerRegisterError.textContent = 'Please enter a Valid Email!';
+        this.headerRegisterError.classList.add('header-error');
+        validUser = false;
       }else if(isNaN(this.rphone.value)) {
-        alert('is should be a number');
-        return false;
-      }else {
+        this.headerRegisterError.textContent = 'Please enter a Valid Number!';
+        this.headerRegisterError.classList.add('header-error');
+        validUser = false;
+      }
+
+      if(validUser) {
+        this.headerRegisterError.textContent = 'Congrats! Contact added successfully.';
+        this.headerRegisterError.classList.remove('header-error');
+        this.headerRegisterError.classList.add('success');
         return true;
+      }else {
+        return false; 
       }
     }
 
@@ -139,7 +180,7 @@ class ContactAddView extends Component {
                             <button className="btn" onClick={(e) => this.submitSearch(e)}>
                               Search
                             </button>
-                            <Link to='/list' className="btn btn-large">View Contacts</Link>
+                            <button className="btn btn-large" data-id="list" onClick={(e) => this.submitSearch(e)} >View Contacts</button>
                         </div>
                       </div>
                     </div>
@@ -152,6 +193,17 @@ class ContactAddView extends Component {
                         <input name="lastName" placeholder="Last Name" type="text" ref={input => this.lname = input} />
                         <input name="email" placeholder="Email" type="text" ref={input => this.remail = input} />
                         <input name="phone" placeholder="Phone" type="text" ref={input => this.rphone = input} />
+                        <div className="radio-group">
+                          <label>
+                            <input type="radio" name="status" value="active" checked={true} ref={input => this.statusRadioActive = input} onChange={(e) => this.onRadioChange(e)}/>
+                            Active
+                          </label>
+
+                          <label>
+                            <input type="radio" name="status" value="inactive" ref={input => this.statusRadioInactive = input} onChange={(e) => this.onRadioChange(e)}/>
+                            Inactive
+                          </label>
+                        </div>
                         <button className="btn" onClick={(e) => this.submitContact(e)}>
                           Add
                         </button>

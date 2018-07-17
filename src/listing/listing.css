@@ -33,6 +33,19 @@ button.btn, a.btn {
   cursor: pointer;
   outline: none;
 }
+
 button.btn:hover, a.btn:hover {
   color: #4994a8;
+}
+
+@media all and (max-width: 850px) {
+  .table-wrap {
+    width: 95%;
+  }  
+}
+
+@media all and (max-width: 700px) {
+  .table-wrap {
+    width: 100%;
+  }  
 }
