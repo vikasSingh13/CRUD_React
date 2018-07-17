@@ -22,15 +22,26 @@ class Listing extends Component {
   deleteRow(event) {
     localUser = [];
     const rowRemoved = $(event.currentTarget).data('id');
+    
     fetchedUsers.forEach(function(item, index) {
-      if(item.phone !== rowRemoved) {
+      if(item.phone !== String(rowRemoved)) {
         localUser.push(item);
       }
     });
 
+    if(fetchedUsers.length < 2) {
+      fetchedUsers.length = 0;
+      localUser.length = 0;
+    }
+
+    localStorage.removeItem('users');
     localStorage.setItem('users', JSON.stringify(localUser));
 
     $(event.currentTarget).closest('tr').remove();
+
+    if(!JSON.parse(localStorage.getItem('users')).length) {
+      localStorage.removeItem('users');
+    }
   }
 
   render() {
