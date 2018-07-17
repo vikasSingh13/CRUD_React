@@ -334,3 +334,57 @@ button.btn.btn-large {
 .register-header {
   top: 18px;
 }
+
+@media all and (max-width: 620px) {
+  .content {
+    position: relative;
+  }
+  .contact-wrap {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    width: 310px;
+    height: 320px;
+    margin-left: -155px;
+    transform: none;
+  }
+  .container .container-forms .container-info {
+    height: 450px;
+    width: 310px;
+    position: relative;
+    overflow: hidden;
+  }
+  .container .container-forms .container-info .info-item {
+    position: absolute;
+    width: 311px;
+    height: 103px;
+    bottom: 0;
+    left: 0;
+    transition: all 0.3s ease-in-out;
+  }
+  .container .container-form {
+    left: 15px;
+    top: -22px;
+    width: 280px;
+    height: 380px;
+  }
+  .container.search-contact .container-form {
+    left: 15px;
+  }  
+  .container-info .info-item .table {
+    height: 80px;
+  }
+  .container .container-forms .container-info .info-item .table-cell,
+  .container .container-forms .container-info .info-item:nth-child(2) .table-cell {
+    padding: 0;
+  }
+  .container .container-forms .container-info .info-item:first-child {
+    left: -100%;
+  }
+  .container.search-contact .container-forms .container-info .info-item:first-child {
+    left: 0;
+  }
+  .container.search-contact .container-forms .container-info .info-item:nth-child(2) {
+    left: 100%;
+  }
+}

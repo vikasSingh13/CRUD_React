@@ -47,5 +47,37 @@ button.btn:hover, a.btn:hover {
 @media all and (max-width: 700px) {
   .table-wrap {
     width: 100%;
-  }  
+  } 
+  table.user-table {
+    font-size: 12px;
+  } 
+}
+
+@media all and (max-width: 600px) {
+  .home-link {
+    float: none;
+    display: inline-block;
+  }
+  .table-wrap .table-inner {
+    overflow-x: scroll;
+  }
+  table.user-table {
+    width: 566px;
+  }
+  .table-inner::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+  }
+
+  .table-inner::-webkit-scrollbar {
+    height: 8px;
+    background-color: #F5F5F5;
+  }
+
+  .table-inner::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #ccc;
+  }
 }

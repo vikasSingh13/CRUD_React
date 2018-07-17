@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Alert from './../alerts/Alert';
 import './user.css';
 
 let usersList, tempUserList;
@@ -66,37 +67,41 @@ class EditContact extends Component {
     render() {    
         return (
           <div className="contact-wrap edit-wrap">
-            <div className="container">
-              <div className="container-forms">
-                <div className="container-form">
-                  <div className="form-item edit-contact">
-                    <div className="table">
-                      <div className="table-cell">
-                        <input name="firstName" placeholder="First Name" type="text" ref={input => this.fname = input} />
-                        <input name="lastName" placeholder="Last Name" type="text" ref={input => this.lname = input} />
-                        <input name="email" placeholder="Email" type="text" ref={input => this.email = input} />
-                        <input name="phone" placeholder="Phone" type="text" ref={input => this.phone = input} />
-                        <div className="radio-group">
-                          <label>
-                            <input type="radio" name="status" value="active" checked={this.state.checkedRadioActive} ref={input => this.statusRadioActive = input} onChange={(e) => this.onChangeRadio(e)}/>
-                            Active
-                          </label>
+            {this.state.updatedID !== null ? (
+              <div className="container">
+                <div className="container-forms">
+                  <div className="container-form">
+                    <div className="form-item edit-contact">
+                      <div className="table">
+                        <div className="table-cell">
+                          <input name="firstName" placeholder="First Name" type="text" ref={input => this.fname = input} />
+                          <input name="lastName" placeholder="Last Name" type="text" ref={input => this.lname = input} />
+                          <input name="email" placeholder="Email" type="text" ref={input => this.email = input} />
+                          <input name="phone" placeholder="Phone" type="text" ref={input => this.phone = input} />
+                          <div className="radio-group">
+                            <label>
+                              <input type="radio" name="status" value="active" checked={this.state.checkedRadioActive} ref={input => this.statusRadioActive = input} onChange={(e) => this.onChangeRadio(e)}/>
+                              Active
+                            </label>
 
-                          <label>
-                            <input type="radio" name="status" value="inactive" checked={this.state.checkedRadioInActive} ref={input => this.statusRadioInactive = input} onChange={(e) => this.onChangeRadio(e)} />
-                            Inactive
-                          </label>
+                            <label>
+                              <input type="radio" name="status" value="inactive" checked={this.state.checkedRadioInActive} ref={input => this.statusRadioInactive = input} onChange={(e) => this.onChangeRadio(e)} />
+                              Inactive
+                            </label>
+                          </div>
+                          <button className="btn" onClick={(e) => this.updateContact(e)}>
+                            Update
+                          </button>
+                          <Link to='/list' className="btn btn-secondary">Cancel</Link>
                         </div>
-                        <button className="btn" onClick={(e) => this.updateContact(e)}>
-                          Update
-                        </button>
-                        <Link to='/list' className="btn btn-secondary">Cancel</Link>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+              ): (
+                <Alert type="error" to="edit"/>
+              )}
           </div>
         );
     }

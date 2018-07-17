@@ -24,3 +24,62 @@ body::before {
   width: 100%;
   height: 100%;
 }
+
+.preloader-wrap {
+  position: fixed;
+  z-index: 99999999;
+  left: 0;
+  top: 0;
+  opacity: 1;
+  width: 100%;
+  height: 100%;
+  transition: all 0.8s ease-in-out;
+  background: linear-gradient(to right, #2193b0, #b1e9f5);
+}
+
+.preloader-wrap.hide-loader {
+  opacity: 0;
+  z-index: -9999;
+}
+
+.preloader {
+  background: lightcyan;
+  box-shadow: 0 0 100px cyan;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  width: 80px;
+  height: 80px;
+  z-index: 300;
+  border-radius: 50%;
+}
+
+.preloader > .indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  height: 70%;
+  border: 8px solid turquoise;
+  border-right-color: darken(darkturquoise, 8%);
+  border-top-color: darken(cyan, 15%);
+  border-left-color: darken(turquoise, 14%);
+  border-bottom-color: dodgerblue;
+  border-radius: 50%;
+  animation: 0.4s linear mm-spin infinite;
+}
+
+@keyframes mm-spin {
+  from {transform: translate(-50%, -50%) rotateZ(0deg);}
+  to {transform: translate(-50%, -50%) rotateZ(360deg);}
+}
+
+.loading_text {
+  position: absolute;
+  top: 44px;
+  font-size: 12px;
+  left: 25px;
+}
