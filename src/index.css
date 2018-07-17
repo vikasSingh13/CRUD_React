@@ -1,16 +1,21 @@
+html, body {
+  height: 100%;
+  width: 100%;
+}
 body {
-    margin: 0;
-    padding: 0;
-    background: #44c4e7 url("https://38.media.tumblr.com/d23deac40b06633b79520a8552f40b94/tumblr_nb1uhrRrge1st5lhmo1_1280.jpg") no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    font-family: sans-serif;
-    font-size: 14px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    position: relative;
+  margin: 0;
+  padding: 0 0 30px 0;
+  background: #44c4e7 url("https://38.media.tumblr.com/d23deac40b06633b79520a8552f40b94/tumblr_nb1uhrRrge1st5lhmo1_1280.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  box-sizing: border-box;
 }
 
 body::before {
@@ -82,4 +87,17 @@ body::before {
   top: 44px;
   font-size: 12px;
   left: 25px;
+}
+
+.footer-wrap {
+  padding: 5px 0;
+  height: 30px;
+  font-size: 12px;
+  line-height: 30px;
+  position: absolute;
+  bottom: 0;
+  color: #e2d8d8;
+  left: 0;
+  width: 100%;
+  text-align: center;
 }

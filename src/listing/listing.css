@@ -62,7 +62,7 @@ button.btn:hover, a.btn:hover {
     overflow-x: scroll;
   }
   table.user-table {
-    width: 566px;
+    width: 600px;
   }
   .table-inner::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
