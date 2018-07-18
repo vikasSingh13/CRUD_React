@@ -25,9 +25,17 @@ class ContactAddView extends Component {
     }
   }
 
+  componentDidMount() {
+    $('.js-contact-form input').on('change', function(event) {
+      $(event.currentTarget).removeClass('highlight-error');
+    });
+  }
+
   //NOTE: Animate & Showing the Add contact box
   showAdd() {
     $(".container").addClass("search-contact");
+    this.email.value = '';
+    this.email.nextElementSibling.classList.add('hide');
   }
 
   //NOTE: Animate & Showing the Search contact box
@@ -90,7 +98,7 @@ class ContactAddView extends Component {
         
         if(errorCount === this.state.users.length) {
             email.nextElementSibling.classList.remove('hide');
-            email.nextElementSibling.textContent = 'Sorry! This email is not present.';
+            email.nextElementSibling.textContent = 'Sorry! This Contact is not present. You can Add!';
             return false;
         }else {
             this.headerError.textContent = 'Contact is present!';
@@ -142,14 +150,32 @@ class ContactAddView extends Component {
     if(!this.fname.value.length || !this.lname.value.length || !this.remail.value.length || !this.rphone.value.length) {
       this.headerRegisterError.classList.add('header-error');
       this.headerRegisterError.textContent = 'Every fields are Mandatory';
+      
+      if(!this.fname.value.length) {
+        this.fname.classList.add('highlight-error');
+      }
+
+      if(!this.lname.value.length) {
+        this.lname.classList.add('highlight-error');
+      }
+
+      if(!this.remail.value.length) {
+        this.remail.classList.add('highlight-error');
+      }
+
+      if(!this.rphone.value.length) {
+        this.rphone.classList.add('highlight-error');
+      }
       validUser = false;
     }else if(!emailRegEx.test(String(this.remail.value).toLowerCase())) {
       this.headerRegisterError.textContent = 'Please enter a Valid Email!';
       this.headerRegisterError.classList.add('header-error');
+      this.remail.classList.add('highlight-error');
       validUser = false;
     }else if(isNaN(this.rphone.value)) {
       this.headerRegisterError.textContent = 'Please enter a Valid Number!';
       this.headerRegisterError.classList.add('header-error');
+      this.rphone.classList.add('highlight-error');
       validUser = false;
     }
 
@@ -213,7 +239,7 @@ class ContactAddView extends Component {
                   </div>
                 </div>
               </div>
-              <div className="form-item add-contact">
+              <div className="form-item add-contact js-contact-form">
                 <div className="table">
                   <span className="header-search register-header" ref={input => this.headerRegisterError = input}>Add a New Contact!</span>
                   <div className="table-cell">

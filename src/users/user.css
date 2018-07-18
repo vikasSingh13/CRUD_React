@@ -203,6 +203,13 @@ button.btn.btn-large {
   top: 62px;
   height: 265px;
 }
+
+.edit-contact input.highlight-error,
+.add-contact input.highlight-error {
+  border-color: #e04c4c;
+  box-shadow: 0 0 5px 2px rgba(224, 76, 76, 0.3);
+}
+
 .container.search-contact .box:after {
   top: 22px;
   left: 192px;

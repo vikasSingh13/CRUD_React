@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import $ from 'jquery';
 import Alert from './../alerts/Alert';
 import './user.css';
 
@@ -35,6 +36,10 @@ class EditContact extends Component {
           }
       }
     }.bind(this));
+
+    $('.js-contact-form input').on('change', function(event) {
+      $(event.currentTarget).removeClass('highlight-error');
+    });
   }
 
   //NOTE: Setting up the state on the basis of the Active and Inactive radio select
@@ -49,24 +54,76 @@ class EditContact extends Component {
   //NOTE: When user clicks update button after editing the data setting up the localstorage and redirecting ot list screen
   updateContact() {
     tempUserList = [];
-    usersList.forEach(function(item, index) {
-      if(String(item.phone) === this.state.updatedID) {
-        item.first_name = this.fname.value;
-        item.last_name = this.lname.value;
-        item.email = this.email.value;
-        item.phone = this.phone.value;
-        if(this.state.checkedRadioActive) {
-          item.status = 'active';
-        }else {
-          item.status = 'inactive';
+    if(this.validateFields()) {
+      usersList.forEach(function(item, index) {
+        if(String(item.phone) === this.state.updatedID) {
+          item.first_name = this.fname.value;
+          item.last_name = this.lname.value;
+          item.email = this.email.value;
+          item.phone = this.phone.value;
+          if(this.state.checkedRadioActive) {
+            item.status = 'active';
+          }else {
+            item.status = 'inactive';
+          }
         }
+        tempUserList.push(item);
+      }.bind(this));
+
+      localStorage.setItem('users', JSON.stringify(tempUserList));
+      
+      setTimeout(function() {
+        this.props.history.push('/list');
+      }.bind(this), 1000);
+
+    }
+  }
+
+  //NOTE: Validating the contact when adding a new contact
+  validateFields() {
+    let emailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let validUser = true;
+
+    if(!this.fname.value.length || !this.lname.value.length || !this.email.value.length || !this.phone.value.length) {
+      this.headerRegisterError.classList.add('header-error');
+      this.headerRegisterError.textContent = 'Every fields are Mandatory';
+      
+      if(!this.fname.value.length) {
+        this.fname.classList.add('highlight-error');
       }
-      tempUserList.push(item);
-    }.bind(this));
 
-    localStorage.setItem('users', JSON.stringify(tempUserList));
+      if(!this.lname.value.length) {
+        this.lname.classList.add('highlight-error');
+      }
 
-    this.props.history.push('/list');
+      if(!this.email.value.length) {
+        this.email.classList.add('highlight-error');
+      }
+
+      if(!this.phone.value.length) {
+        this.phone.classList.add('highlight-error');
+      }
+      validUser = false;
+    }else if(!emailRegEx.test(String(this.email.value).toLowerCase())) {
+      this.headerRegisterError.textContent = 'Please enter a Valid Email!';
+      this.headerRegisterError.classList.add('header-error');
+      this.email.classList.add('highlight-error');
+      validUser = false;
+    }else if(isNaN(this.phone.value)) {
+      this.headerRegisterError.textContent = 'Please enter a Valid Number!';
+      this.headerRegisterError.classList.add('header-error');
+      this.phone.classList.add('highlight-error');
+      validUser = false;
+    }
+
+    if(validUser) {
+      this.headerRegisterError.textContent = 'Congrats! Contact Updated successfully.';
+      this.headerRegisterError.classList.remove('header-error');
+      this.headerRegisterError.classList.add('success');
+      return true;
+    }else {
+      return false; 
+    }
   }
 
   render() {    
@@ -76,8 +133,9 @@ class EditContact extends Component {
           <div className="container">
             <div className="container-forms">
               <div className="container-form">
-                <div className="form-item edit-contact">
+                <div className="form-item edit-contact js-contact-form">
                   <div className="table">
+                    <span className="header-search register-header" ref={input => this.headerRegisterError = input}>You can update now!</span>
                     <div className="table-cell">
                       <input name="firstName" placeholder="First Name" type="text" ref={input => this.fname = input} />
                       <input name="lastName" placeholder="Last Name" type="text" ref={input => this.lname = input} />
