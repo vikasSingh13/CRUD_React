@@ -16,7 +16,7 @@
     box-sizing: border-box;
 }
 
-.home-link {
+.notfound-home-link {
     padding: 10px 20px;
     display: inline-block;
     font-size: 16px;
@@ -36,7 +36,7 @@
 }
 
 @media all and (max-width: 700px) {
-    .home-link {
+    .notfound-home-link {
         top: 20px;
     }    
 }

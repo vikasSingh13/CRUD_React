@@ -6,7 +6,7 @@ class NotFoundPage extends Component {
   render() {
     return (
       <div className="not-found-wrap">
-        <Link to='/' className="home-link">Home</Link>
+        <Link to='/' className="notfound-home-link">Home</Link>
       </div>
     );
   }
