@@ -34,6 +34,9 @@ my-app/
     listing/
       Listing.css
       Listing.js
+    notfound/
+      notfound.css
+      NotFoundPage.js
     users/
       ContactAddView.js
       EditContact.js
