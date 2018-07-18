@@ -12,7 +12,10 @@ class Listing extends Component {
     if((localStorage.getItem('users') !== null)) { 
       this.getUsers();
       this.setState({
-        showAlert: false
+        showAlert: false,
+        showConfirmation: false,
+        deletedRow: null,
+        eventElement: null
       });
     }else {
       this.setState({
@@ -28,13 +31,31 @@ class Listing extends Component {
     this.setState({ users: fetchedUsers });
   }
 
-  //NOTE: Deleting of a row and data from the localstorage
-  deleteRow(event) {
-    localUser = [];
+  //NOTE: Opening a confirmation box before deleteting
+  openConfirmation(event) {
     const rowRemoved = $(event.currentTarget).data('id');
+    this.setState({ showConfirmation: true, deletedRow: rowRemoved, eventElement: $(event.currentTarget) });
+    $('.js-table').addClass('blur-it');
+  }
+
+  //NOTE: Getting confirmation
+  confirmation(event) {
+    const confirm = $(event.currentTarget).data('value');
+    if(confirm === 'yes') {
+      this.deleteRow(this.state.deletedRow, this.state.eventElement);
+    }else {
+      $('.js-table').removeClass('blur-it');
+      this.setState({ showConfirmation: false, deletedRow: null, eventElement: null });  
+    }
+  }
+
+  //NOTE: Deleting of a row and data from the localstorage
+  deleteRow(value, event) {
+    localUser = [];
+    const rowRemoved = String(value);
     
     fetchedUsers.forEach(function(item, index) {
-      if(item.phone !== String(rowRemoved)) {
+      if(item.phone !== rowRemoved) {
         localUser.push(item);
       }
     });
@@ -47,11 +68,14 @@ class Listing extends Component {
     localStorage.removeItem('users');
     localStorage.setItem('users', JSON.stringify(localUser));
 
-    $(event.currentTarget).closest('tr').remove();
+    event.closest('tr').remove();
 
     if(!JSON.parse(localStorage.getItem('users')).length) {
       localStorage.removeItem('users');
     }
+
+    $('.js-table').removeClass('blur-it');
+    this.setState({ showConfirmation: false, deletedRow: null, eventElement: null });
 
     if((localStorage.getItem('users') === null)) {
       this.setState({
@@ -70,9 +94,20 @@ class Listing extends Component {
           ): (
           <div className="table-wrap">
             <div>
+              {this.state.showConfirmation ? (
+                <div className="confirmation-box">
+                  <p>Are you sure, you want to delete this Contact?</p>
+                  <div className="action-wrap">
+                    <button className="delete-btn btn" data-value="yes" onClick={(e) => this.confirmation(e)}>Yes</button>
+                    <button className="delete-btn btn" data-value="no" onClick={(e) => this.confirmation(e)}>No</button>
+                  </div>
+                </div>
+              ): ''}
+            </div>
+            <div>
               <Link to='/' className="home-link">Add Contact!</Link>
               <div className="table-inner">
-                <table className="user-table">
+                <table className="user-table js-table">
                   <thead>
                     <tr>
                       <th>First Name</th>
@@ -93,7 +128,7 @@ class Listing extends Component {
                             <td>{user.phone}</td>
                             <td>{user.email}</td>
                             <td>{user.status}</td>
-                            <td><Link to={`/user/${user.phone}/edit`} className="edit-btn btn">Edit</Link> | <button data-id={`${user.phone}`} className="delete-btn btn" onClick={(e) => this.deleteRow(e)}>Delete</button></td>
+                            <td><Link to={`/user/${user.phone}/edit`} className="edit-btn btn">Edit</Link> | <button data-id={`${user.phone}`} className="delete-btn btn" onClick={(e) => this.openConfirmation(e)}>Delete</button></td>
                           </tr>
                         )
                       })

@@ -106,10 +106,11 @@ body::before {
   .main-root-wrap {
     position: relative;
     height: 100%;
+    margin-bottom: 50px;
   }
 }
 @media all and (max-width: 600px) {
   .footer-wrap {
-    bottom: -50px;
+    position: static;
   }
 }

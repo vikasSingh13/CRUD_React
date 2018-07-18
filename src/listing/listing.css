@@ -1,6 +1,7 @@
 .table-wrap {
   width: 80%;
   margin: 0 auto;
+  position: relative;
 }
 .home-link {
   margin: 20px 0;
@@ -26,6 +27,10 @@
   box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.2);
 }
 
+.user-table.blur-it {
+  filter: blur(3px);
+}
+
 .user-table tr td, .user-table tr th {
   border: 1px solid #e5e5e5;
   padding: 10px;
@@ -47,6 +52,29 @@ button.btn:hover, a.btn:hover {
   color: #4994a8;
 }
 
+.confirmation-box {
+  width: 40%;
+  background: rgba(0,0,0,0.7);
+  padding: 35px;
+  border-radius: 3px;
+  background-clip: padding-box;
+  text-align: center;
+  font-size: 16px;
+  color: #fff;
+  z-index: 9;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.confirmation-box .action-wrap button {
+  color: #fff;
+  padding: 10px;
+  border: 1px solid #fff;
+  min-width: 80px;
+  margin-right: 10px;
+}
+
 @media all and (max-width: 850px) {
   .table-wrap {
     width: 95%;
@@ -59,6 +87,9 @@ button.btn:hover, a.btn:hover {
   } 
   table.user-table {
     font-size: 12px;
+  }
+  .confirmation-box {
+    width: 50%;
   } 
 }
 
@@ -67,6 +98,9 @@ button.btn:hover, a.btn:hover {
     float: none;
     display: inline-block;
   }
+  .confirmation-box {
+    width: 60%;
+  } 
   .table-wrap .table-inner {
     overflow-x: scroll;
   }
@@ -88,5 +122,11 @@ button.btn:hover, a.btn:hover {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
     background-color: #ccc;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .confirmation-box {
+    width: 80%;
   }
 }
