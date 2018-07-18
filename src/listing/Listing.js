@@ -7,18 +7,21 @@ import './listing.css';
 let localUser, fetchedUsers;
 class Listing extends Component {
 
+  //NOTE: Checking for avalabitlity of data before Component Mount in Localstorage
   componentWillMount() {
     if((localStorage.getItem('users') !== null)) { 
       this.getUsers();
     }
   }
 
+  //NOTE: Fetching data from localstorage and setting the state of component
   getUsers() {
     fetchedUsers = [];
     fetchedUsers = JSON.parse(localStorage.getItem('users'));
     this.setState({ users: fetchedUsers });
   }
 
+  //NOTE: Deleting of a row and data from the localstorage
   deleteRow(event) {
     localUser = [];
     const rowRemoved = $(event.currentTarget).data('id');
@@ -49,7 +52,7 @@ class Listing extends Component {
       <div className="table-wrap">
         {this.state !== null ? (
           <div>
-            <Link to='/' className="home-link">Add More Contact!</Link>
+            <Link to='/' className="home-link">Add Contact!</Link>
             <div className="table-inner">
               <table className="user-table">
                 <thead>

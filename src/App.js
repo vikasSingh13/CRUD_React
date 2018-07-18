@@ -8,6 +8,7 @@ import ContactAddView from './users/ContactAddView';
 import EditContact from './users/EditContact';
 
 class App extends Component {
+  //NOTE: Preloader show and hide when first time this app loads
   componentDidMount() {
     setTimeout(function() {
       $('.js-preloader').addClass('hide-loader');
@@ -18,6 +19,7 @@ class App extends Component {
     }, 1800);
   }
 
+  //NOTE: Setting up the routes of this application
   render() {
     return (
       <Router>

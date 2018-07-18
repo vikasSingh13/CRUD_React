@@ -6,6 +6,7 @@ import './user.css';
 let userList;
 class ContactAddView extends Component {
   
+  //NOTE: Setting up the constructor and default state before a component load
   constructor(props) {
     super(props);
     this.state = {
@@ -14,6 +15,7 @@ class ContactAddView extends Component {
     }
   }
 
+  //NOTE: Checking the localstorage for data before component mount and then setting the state if data present
   componentWillMount() {
     if((localStorage.getItem('users') !== null)) {
       userList = JSON.parse(localStorage.getItem('users'));
@@ -23,14 +25,17 @@ class ContactAddView extends Component {
     }
   }
 
+  //NOTE: Animate & Showing the Add contact box
   showAdd() {
     $(".container").addClass("search-contact");
   }
 
+  //NOTE: Animate & Showing the Search contact box
   showSearch() {
     $(".container").removeClass("search-contact");
   }
 
+  //NOTE: Message modification on the change of search input box
   inputChanged(event) {
     if(event.target.value.length) {
       this.headerError.textContent = 'Search the Contact!';
@@ -40,6 +45,7 @@ class ContactAddView extends Component {
     }
   }
 
+  //NOTE: On radio change of Active setting the state active true
   onRadioActiveChange(event) {
     this.setState({
       activeRadio: true,
@@ -47,6 +53,7 @@ class ContactAddView extends Component {
     });
   }
 
+  //NOTE: On radio change of inactive setting the state in-active true
   onRadioInActiveChange(event) {
     this.setState({
       activeRadio: false,
@@ -54,6 +61,7 @@ class ContactAddView extends Component {
     });
   }
 
+  //NOTE: When user search a email checking and showing whether it's present in localstorage or not
   submitSearch(event) {
     const email = this.email;
     let errorCount = 0;
@@ -96,6 +104,7 @@ class ContactAddView extends Component {
     }
   }
 
+  //NOTE: Saving contact when user submit the details for new contact
   submitContact() {
     if(this.validateFields()) {
       let registeredUser = {
@@ -116,6 +125,7 @@ class ContactAddView extends Component {
     }
   }
 
+  //NOTE: Validating the contact when adding a new contact
   validateFields() {
     let emailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let validUser = true;
