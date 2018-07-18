@@ -1,10 +1,14 @@
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
-```sh
-  npm create-react-app your-app-name
-```
-This command will give you the basic folder structure of a React app.
+Below you will find some information on how to clone and run this app and perform common tasks.<br>
 
-Below you will find some information on how to perform common tasks.<br>
+## Cloning the app
+Open your git bash command prompt or normal command prompt and use below code to clone this repository.
+```
+  If you are using ssh
+  git clone git@github.com:vikasSingh13/CRUD_React.git
+
+  If you are using http
+  git clone https://github.com/vikasSingh13/CRUD_React.git
+```
 
 ## Folder Structure
 
@@ -64,7 +68,7 @@ In the project directory, you can run:
 `npm install` or 'yarn install'
 To install all the Package.json dependecies.
 
-### `npm start`
+### `npm start` or `yarn start`
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -114,3 +118,9 @@ class Alert extends Component {
 
 export default Alert; // Don’t forget to use export default!
 ```
+
+This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+```sh
+  npm create-react-app your-app-name
+```
+This command will give you the basic folder structure of a React app.
