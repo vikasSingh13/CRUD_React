@@ -5,7 +5,6 @@ html, body {
 body {
   margin: 0;
   padding: 0 0 30px 0;
-  /*background: #44c4e7 url("./images/bg.jpg") no-repeat center center fixed;*/
   background: #44c4e7 url("./images/bg.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -103,6 +102,12 @@ body::before {
   text-align: center;
 }
 
+@media all and (max-width: 700px) {
+  .main-root-wrap {
+    position: relative;
+    height: 100%;
+  }
+}
 @media all and (max-width: 600px) {
   .footer-wrap {
     bottom: -50px;

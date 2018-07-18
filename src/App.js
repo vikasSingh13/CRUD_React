@@ -6,6 +6,7 @@ import Header from './header/Header';
 import Listing from './listing/Listing';
 import ContactAddView from './users/ContactAddView';
 import EditContact from './users/EditContact';
+import NotFoundPage from './notfound/NotFoundPage';
 
 class App extends Component {
   //NOTE: Preloader show and hide when first time this app loads
@@ -30,6 +31,7 @@ class App extends Component {
               <Route exact path='/' component={ContactAddView} />
               <Route exact path='/list' component={Listing} />
               <Route path='/user/:id/edit' component={EditContact} />
+              <Route path='*' exact={true} component={NotFoundPage} />
             </Switch>
           </div>
         </div>

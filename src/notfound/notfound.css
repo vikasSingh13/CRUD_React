@@ -1,0 +1,42 @@
+.not-found-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #44c4e7 url("./../images/404-page-3.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-family: sans-serif;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    box-sizing: border-box;
+}
+
+.home-link {
+    padding: 10px 20px;
+    display: inline-block;
+    font-size: 16px;
+    text-align: center;
+    position: absolute;
+    width: 100px;
+    color: #fff;
+    -webkit-box-shadow: 0 0 10px 1px #ff73b3;
+    box-shadow: 0 0 10px 1px #ff73b3;
+    background-color: #ff73b3;
+    -o-transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    text-decoration: none;
+    top: 112px;
+    margin-left: -50px;
+}
+
+@media all and (max-width: 700px) {
+    .home-link {
+        top: 20px;
+    }    
+}
